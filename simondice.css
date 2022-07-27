@@ -1,24 +1,34 @@
-.shape1{
-	width: 200px;
-	height: 200px;
-	background: black;
-	-moz-border-radius: 100px;
-	-webkit-border-radius: 100px;
-	border-radius: 50px;
+#contenedor {
+  display: grid;
+  grid-template-columns: 20% [column2] 20% [column3] 20% [column4] 20% [column5] 20%;
+  grid-template-rows: 20% [row2] 20% [row3] 20% 20% 20%;
+  width: 50vw;
+  height: 50vw;
 }
-.shape2{
-	width: 200px;
-	height: 200px;
-	background: green;
-	-moz-border-radius: 100px;
-	-webkit-border-radius: 100px;
-	border-radius: 50px;
+#iniciar {
+  background-color: purple;
+  grid-row-start: row2;
+  grid-column-start: column2;
+  grid-column-end: column5;
 }
-.shape3{
-	width: 200px;
-	height: 200px;
-	background: red;
-	-moz-border-radius: 100px;
-	-webkit-border-radius: 100px;
-	border-radius: 50px;
+[id="0"] {
+  grid-row-start: row3;
+  grid-column-start: column2;
+  background-color: whitesmoke;
+}
+[id="1"] {
+  grid-row-start: row3;
+  grid-column-start: column3;
+  background-color: whitesmoke;
+}
+[id="2"] {
+  grid-row-start: row3;
+  grid-column-start: column4;
+  background-color: whitesmoke;
+}
+.colorVerde {
+  background-color: green;
+}
+.colorRojo {
+  background-color: red;
 }

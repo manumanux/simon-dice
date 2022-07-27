@@ -4,54 +4,53 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
 
-function colorearRojo(id) {
+function colorearCuadroIncorrecto(id) {
   setTimeout(function () {
-    document.getElementById(id).className = "shape3";
+    document.getElementById(id).classList.add("colorRojo");
   }, 250);
   setTimeout(function () {
-    document.getElementById(id).className = "shape1";
+    document.getElementById(id).classList.remove("colorRojo");
   }, 500);
 }
 
-function colorear(id) {
+function colorearCuadroCorrecto(id) {
   setTimeout(function () {
-    document.getElementById(id).className = "shape2";
+    document.getElementById(id).classList.add("colorVerde");
   });
   setTimeout(function () {
-    document.getElementById(id).className = "shape1";
+    document.getElementById(id).classList.remove("colorVerde");
   }, 250);
 }
 
-function jugadorPierde() {
+function pierdeJugador() {
   idCuadros = [0, 1, 2];
   idCuadros.forEach(function (cuadro) {
     {
-      colorearRojo(cuadro);
+      colorearCuadroIncorrecto(cuadro);
     }
   });
   setTimeout(function () {
     idCuadros.forEach(function (cuadro) {
       {
-        colorearRojo(cuadro);
+        colorearCuadroIncorrecto(cuadro);
       }
     });
   }, 500);
   setTimeout(function () {
     idCuadros.forEach(function (cuadro) {
       {
-        colorearRojo(cuadro);
+        colorearCuadroIncorrecto(cuadro);
       }
     });
   }, 1000);
 }
 
-function agarrarClick(click) {
+function obtenerIdDeClick(click) {
   click = event.srcElement.id;
   return click;
 }
 
-function arraysEqual(a, b) {
-  if (a === b) return true;
+function compararListas(a, b) {
   if (a == null || b == null) return false;
   if (a.length !== b.length) return false;
   for (var i = 0; i < a.length; ++i) {
@@ -63,10 +62,10 @@ function arraysEqual(a, b) {
 function iniciarJuego() {
   numeroRandom = String(getRandomInt(3));
   setTimeout(function () {
-    document.getElementById(numeroRandom).className = "shape2";
+    document.getElementById(numeroRandom).classList.add("colorVerde");
   }, 500);
   setTimeout(function () {
-    document.getElementById(numeroRandom).className = "shape1";
+    document.getElementById(numeroRandom).classList.remove("colorVerde");
   }, 750);
 
   return numeroRandom;
@@ -75,30 +74,27 @@ function iniciarJuego() {
 document.querySelector("#iniciar").onclick = function () {
   cuadrosAClickear = [];
   clicksUsuario = [];
-  botonIniciar = iniciarJuego();
-  cuadrosAClickear.push(botonIniciar);
+  cuadrosAClickear.push(iniciarJuego());
 
   $contenedor.onclick = function () {
-    clickDeUsuario = agarrarClick();
-    if (/[0-2]/i.test(clickDeUsuario)) {
-      clicksUsuario.push(clickDeUsuario);
+    if (/[0-2]/i.test(obtenerIdDeClick())) {
+      clicksUsuario.push(obtenerIdDeClick());
 
       for (i = 0; i < clicksUsuario.length; i++) {
         if (clicksUsuario[i] != cuadrosAClickear[i]) {
-          jugadorPierde();
+          pierdeJugador();
         }
       }
-      if (arraysEqual(cuadrosAClickear, clicksUsuario)) {
+      if (compararListas(cuadrosAClickear, clicksUsuario)) {
         for (i = 0; i < cuadrosAClickear.length; i++) {
           (function (x, array) {
             setTimeout(function () {
-              colorear(array[x]);
+              colorearCuadroCorrecto(array[x]);
             }, (i + 1) * 750);
           })(i, cuadrosAClickear);
         }
         setTimeout(function () {
-          turnoSiguiente = iniciarJuego();
-          cuadrosAClickear.push(turnoSiguiente);
+          cuadrosAClickear.push(iniciarJuego());
         }, 750 * cuadrosAClickear.length);
 
         clicksUsuario = [];
