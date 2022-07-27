@@ -22,7 +22,7 @@ function colorearCuadroCorrecto(id) {
   }, 250);
 }
 
-function pierdeJugador() {
+function perder() {
   idCuadros = [0, 1, 2];
   idCuadros.forEach(function (cuadro) {
     {
@@ -52,7 +52,6 @@ function obtenerIdDeClick(click) {
 
 function compararListas(a, b) {
   if (a == null || b == null) return false;
-  if (a.length !== b.length) return false;
   for (var i = 0; i < a.length; ++i) {
     if (a[i] !== b[i]) return false;
   }
@@ -82,7 +81,7 @@ document.querySelector("#iniciar").onclick = function () {
 
       for (i = 0; i < clicksUsuario.length; i++) {
         if (clicksUsuario[i] != cuadrosAClickear[i]) {
-          pierdeJugador();
+          perder();
         }
       }
       if (compararListas(cuadrosAClickear, clicksUsuario)) {
