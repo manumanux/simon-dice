@@ -4,53 +4,43 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
 
-function colorearCuadroIncorrecto(id) {
-  setTimeout(function () {
-    document.getElementById(id).classList.add("colorRojo");
-  }, 250);
-  setTimeout(function () {
-    document.getElementById(id).classList.remove("colorRojo");
-  }, 500);
+function colorearCuadrosJugadorPierde(cuadros) {
+  for (i = 0; i < cuadros; i++) {
+    (function (x) {
+      setTimeout(function () {
+        document.getElementById(x).classList.add("colorRojo");
+      }, 1);
+      setTimeout(function () {
+        document.getElementById(x).classList.remove("colorRojo");
+      }, 250);
+    })(i);
+  }
 }
 
-function colorearCuadroCorrecto(id) {
+function colorearCuadroCorrecto(cuadro) {
   setTimeout(function () {
-    document.getElementById(id).classList.add("colorVerde");
+    document.getElementById(cuadro).classList.add("colorVerde");
   });
   setTimeout(function () {
-    document.getElementById(id).classList.remove("colorVerde");
+    document.getElementById(cuadro).classList.remove("colorVerde");
   }, 250);
 }
 
 function perder() {
-  idCuadros = [0, 1, 2];
-  idCuadros.forEach(function (cuadro) {
-    {
-      colorearCuadroIncorrecto(cuadro);
-    }
-  });
-  setTimeout(function () {
-    idCuadros.forEach(function (cuadro) {
-      {
-        colorearCuadroIncorrecto(cuadro);
-      }
-    });
-  }, 500);
-  setTimeout(function () {
-    idCuadros.forEach(function (cuadro) {
-      {
-        colorearCuadroIncorrecto(cuadro);
-      }
-    });
-  }, 1000);
+  cantidadDeCuadros = 3;
+  for (i = 0; i < 3; i++) {
+    setTimeout(function () {
+      colorearCuadrosJugadorPierde(cantidadDeCuadros);
+    }, (i + 1) * 500);
+  }
 }
 
-function obtenerIdDeClick(click) {
+function obtenerIdDeElementoClickeado(click) {
   click = event.srcElement.id;
   return click;
 }
 
-function compararListas(a, b) {
+function compararSiArraysDeCuadrosSonIguales(a, b) {
   if (a == null || b == null) return false;
   for (var i = 0; i < a.length; ++i) {
     if (a[i] !== b[i]) return false;
@@ -58,45 +48,40 @@ function compararListas(a, b) {
   return true;
 }
 
-function iniciarJuego() {
-  numeroRandom = String(getRandomInt(3));
+function iniciarJuegoOTurnoSiguiente() {
+  cuadroMaquina = String(getRandomInt(3));
   setTimeout(function () {
-    document.getElementById(numeroRandom).classList.add("colorVerde");
+    colorearCuadroCorrecto(cuadroMaquina);
   }, 500);
-  setTimeout(function () {
-    document.getElementById(numeroRandom).classList.remove("colorVerde");
-  }, 750);
-
-  return numeroRandom;
+  return cuadroMaquina;
 }
 
 document.querySelector("#iniciar").onclick = function () {
-  cuadrosAClickear = [];
-  clicksUsuario = [];
-  cuadrosAClickear.push(iniciarJuego());
+  cuadrosMaquina = [];
+  cuadrosUsuario = [];
+  cuadrosMaquina.push(iniciarJuegoOTurnoSiguiente());
 
   $contenedor.onclick = function () {
-    if (/[0-2]/i.test(obtenerIdDeClick())) {
-      clicksUsuario.push(obtenerIdDeClick());
-
-      for (i = 0; i < clicksUsuario.length; i++) {
-        if (clicksUsuario[i] != cuadrosAClickear[i]) {
+    if (/[0-2]/i.test(obtenerIdDeElementoClickeado())) {
+      cuadrosUsuario.push(obtenerIdDeElementoClickeado());
+      for (i = 0; i < cuadrosUsuario.length; i++) {
+        if (cuadrosUsuario[i] != cuadrosMaquina[i]) {
           perder();
         }
       }
-      if (compararListas(cuadrosAClickear, clicksUsuario)) {
-        for (i = 0; i < cuadrosAClickear.length; i++) {
+      if (compararSiArraysDeCuadrosSonIguales(cuadrosMaquina, cuadrosUsuario)) {
+        for (i = 0; i < cuadrosMaquina.length; i++) {
           (function (x, array) {
             setTimeout(function () {
               colorearCuadroCorrecto(array[x]);
             }, (i + 1) * 750);
-          })(i, cuadrosAClickear);
+          })(i, cuadrosMaquina);
         }
         setTimeout(function () {
-          cuadrosAClickear.push(iniciarJuego());
-        }, 750 * cuadrosAClickear.length);
+          cuadrosMaquina.push(iniciarJuegoOTurnoSiguiente());
+        }, 750 * cuadrosMaquina.length);
 
-        clicksUsuario = [];
+        cuadrosUsuario = [];
       }
     }
   };

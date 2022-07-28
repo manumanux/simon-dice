@@ -7,23 +7,23 @@
 }
 #iniciar {
   background-color: purple;
-  grid-row-start: row2;
+  grid-row: row2;
   grid-column-start: column2;
   grid-column-end: column5;
 }
 [id="0"] {
-  grid-row-start: row3;
-  grid-column-start: column2;
+  grid-row: row3;
+  grid-column: column2;
   background-color: whitesmoke;
 }
 [id="1"] {
-  grid-row-start: row3;
-  grid-column-start: column3;
+  grid-row: row3;
+  grid-column: column3;
   background-color: whitesmoke;
 }
 [id="2"] {
-  grid-row-start: row3;
-  grid-column-start: column4;
+  grid-row: row3;
+  grid-column: column4;
   background-color: whitesmoke;
 }
 .colorVerde {
