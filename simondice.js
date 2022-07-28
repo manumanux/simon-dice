@@ -7,9 +7,7 @@ function getRandomInt(max) {
 function colorearCuadrosJugadorPierde(cuadros) {
   for (i = 0; i < cuadros; i++) {
     (function (x) {
-      setTimeout(function () {
-        document.getElementById(x).classList.add("colorRojo");
-      }, 1);
+      document.getElementById(x).classList.add("colorRojo");
       setTimeout(function () {
         document.getElementById(x).classList.remove("colorRojo");
       }, 250);
@@ -18,9 +16,7 @@ function colorearCuadrosJugadorPierde(cuadros) {
 }
 
 function colorearCuadroCorrecto(cuadro) {
-  setTimeout(function () {
-    document.getElementById(cuadro).classList.add("colorVerde");
-  });
+  document.getElementById(cuadro).classList.add("colorVerde");
   setTimeout(function () {
     document.getElementById(cuadro).classList.remove("colorVerde");
   }, 250);
