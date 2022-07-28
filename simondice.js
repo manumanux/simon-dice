@@ -26,25 +26,25 @@ function colorearCuadroCorrecto(cuadro) {
 }
 
 function habilitarEventoClickUsuario() {
-  $contenedor.classList.remove("desabilitarClick");
+  $contenedor.classList.remove("deshabilitarEventoClick");
 }
 
-function deshabilitarClickUsuario() {
-  $contenedor.classList.add("desabilitarClick");
+function deshabilitarEventoClickUsuario() {
+  $contenedor.classList.add("deshabilitarEventoClick");
 }
 
 function habilitarCuadros() {
   cantidadDeCuadros = 3;
   for (i = 0; i < cantidadDeCuadros; i++) {
     {
-      document.getElementById(i).classList.remove("desabilitarClick");
+      document.getElementById(i).classList.remove("deshabilitarEventoClick");
     }
   }
 }
 
 function manejarTurnoMaquina() {
   setTimeout(function () {
-    deshabilitarClickUsuario();
+    deshabilitarEventoClickUsuario();
     $demostradorDeTurnos.classList.add("turnoMaquina");
     $demostradorDeTurnos.classList.remove("turnoUsuario");
     $demostradorDeTurnos.innerText = "Turno PC";
@@ -63,7 +63,7 @@ function manejarTurnoUsuario() {
 function manejarUsuarioPierde(cuadros) {
   for (i = 0; i < cuadros; i++) {
     (function (x) {
-      document.getElementById(x).classList.add("desabilitarClick");
+      document.getElementById(x).classList.add("deshabilitarEventoClick");
       document.getElementById(x).classList.add("colorRojo");
       setTimeout(function () {
         document.getElementById(x).classList.remove("colorRojo");
@@ -83,7 +83,7 @@ function perder() {
   $demostradorDeTurnos.classList.add("turnoUsuarioPierde");
   $demostradorDeTurnos.innerText = "Perdiste! comenza denuevo";
 
-  deshabilitarClickUsuario();
+  deshabilitarEventoClickUsuario();
   setTimeout(function () {
     habilitarEventoClickUsuario();
   }, 1500);

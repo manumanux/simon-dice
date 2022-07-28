@@ -32,7 +32,7 @@
 .colorRojo {
   background-color: red;
 }
-.desabilitarClick {
+.deshabilitarEventoClick {
   pointer-events: none;
 }
 #turnos {
